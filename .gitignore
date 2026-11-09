@@ -1,0 +1,15 @@
+node_modules/
+**/dist/
+**/.wrangler/
+.local/
+**/.dev.vars*
+**/.env*
+!.env.example
+coverage/
+*.log
+.DS_Store
+
+# Credential-shaped accidental filenames
+cfut_*
+cfat_*
+workers-api

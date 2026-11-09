@@ -1,0 +1,65 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "example-soc-access-probe",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-27",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "send_metrics": false,
+  "observability": {
+    "enabled": false
+  },
+  "vars": {
+    "APP_ENV": "production",
+    "APP_ORIGIN": "https://soc.d.example.invalid",
+    "AUTH_MODE": "access",
+    "ACCESS_ISSUER": "https://access-team.example.invalid",
+    "ACCESS_AUDIENCE": "0000000000000000000000000000000000000000000000000000000000000001",
+    "SIMULATION_INGEST_READS": "phase2b-health-v1",
+    "SOC_FEATURES": "full-simulation-v1",
+    "SOC_MAINTENANCE_PROFILE": "external-workbench-v1",
+    "LIVE_PROFILE": "zone-analytics-readonly-v1",
+    "LIVE_AI_MODE": "on-demand-v1",
+    "LIVE_AI_MODEL": "@cf/zai-org/glm-5.3",
+    "AI_GATEWAY_ID": "example-soc-ai"
+  },
+  "assets": {
+    "directory": "../console/dist",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "d1_databases": [
+    {
+      "binding": "APP_DB",
+      "database_name": "example-soc-control",
+      "database_id": "00000000-0000-4000-8000-000000000011",
+      "migrations_dir": "../../.local/workbench-cloud-review/migrations/none",
+      "remote": false
+    },
+    {
+      "binding": "SIMULATION_DB",
+      "database_name": "example-soc-simulation",
+      "database_id": "00000000-0000-4000-8000-000000000012",
+      "migrations_dir": "../../.local/workbench-cloud-review/migrations/simulation",
+      "remote": false
+    },
+    {
+      "binding": "LIVE_DB",
+      "database_name": "example-soc-live",
+      "database_id": "00000000-0000-4000-8000-000000000013",
+      "migrations_dir": "../../infrastructure/live-migrations",
+      "remote": false
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "SIMULATION_EVIDENCE",
+      "bucket_name": "example-cloudflare-ai-soc-simulation",
+      "remote": false
+    }
+  ],
+  "ai": {
+    "binding": "AI"
+  }
+}

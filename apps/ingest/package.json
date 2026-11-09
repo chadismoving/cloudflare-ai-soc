@@ -1,0 +1,13 @@
+{
+  "name": "@soc/ingest",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node ../../scripts/wrangler-local.mjs ingest-build",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "zod": "4.6.7"
+  }
+}

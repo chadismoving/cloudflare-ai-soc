@@ -1,0 +1,38 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.6.3/schema.json",
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!**/dist",
+      "!**/node_modules",
+      "!**/.wrangler",
+      "!.local",
+      "!docs",
+      "!package-lock.json",
+      "!apps/api/src/worker-bindings.d.ts"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "style": {
+        "noDescendingSpecificity": "off"
+      }
+    }
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  }
+}

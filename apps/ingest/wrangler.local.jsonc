@@ -1,0 +1,49 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "soc-local-ingest",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-27",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "send_metrics": false,
+  "observability": { "enabled": false },
+  "dev": { "ip": "127.0.0.1", "port": 8788, "local_protocol": "http" },
+  "vars": { "APP_ENV": "local", "DATA_ENVIRONMENT": "simulation" },
+  "d1_databases": [
+    {
+      "binding": "SIMULATION_DB",
+      "database_name": "soc-local-simulation",
+      "database_id": "00000000-0000-0000-0000-000000000002",
+      "migrations_dir": "../../infrastructure/migrations",
+      "remote": false
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "SIMULATION_STORE",
+      "bucket_name": "soc-local-simulation-evidence",
+      "remote": false
+    }
+  ],
+  "queues": {
+    "producers": [{ "binding": "INGEST_QUEUE", "queue": "soc-local-ingest" }],
+    "consumers": [
+      {
+        "queue": "soc-local-ingest",
+        "max_batch_size": 1,
+        "max_batch_timeout": 0,
+        "max_retries": 3,
+        "retry_delay": 1,
+        "dead_letter_queue": "soc-local-ingest-dlq"
+      },
+      {
+        "queue": "soc-local-ingest-dlq",
+        "max_batch_size": 1,
+        "max_batch_timeout": 0,
+        "max_retries": 3,
+        "retry_delay": 1
+      }
+    ]
+  }
+}

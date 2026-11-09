@@ -1,0 +1,14 @@
+{
+  "name": "@soc/access-probe",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node ../../scripts/wrangler-local.mjs probe-build",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@soc/shared": "*",
+    "jose": "6.2.13"
+  }
+}

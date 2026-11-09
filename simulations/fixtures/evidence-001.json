@@ -1,0 +1,7 @@
+{
+  "fixture": true,
+  "source": "synthetic",
+  "client": "client-a",
+  "requestCount": 1847,
+  "description": "Foundation evidence preview; no real request data or AI findings."
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "example-soc-ingest-live-worker",
+  "main": "src/live-logpush-worker.ts",
+  "compatibility_date": "2026-10-27",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "send_metrics": false,
+  "observability": {
+    "enabled": false
+  },
+  "limits": {
+    "cpu_ms": 10000
+  },
+  "vars": {
+    "LIVE_LOG_PROFILE": "r2-logpush-v1"
+  },
+  "d1_databases": [
+    {
+      "binding": "LIVE_DB",
+      "database_name": "example-soc-live",
+      "database_id": "00000000-0000-4000-8000-000000000013",
+      "migrations_dir": "../../infrastructure/live-migrations",
+      "remote": false
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "LIVE_LOGS",
+      "bucket_name": "example-cloudflare-ai-soc-live",
+      "remote": false
+    }
+  ],
+  "queues": {
+    "consumers": [
+      {
+        "queue": "example-soc-ingest-live",
+        "max_batch_size": 1,
+        "max_batch_timeout": 1,
+        "max_retries": 3,
+        "retry_delay": 20,
+        "max_concurrency": 1,
+        "dead_letter_queue": "example-soc-ingest-live-dlq"
+      },
+      {
+        "queue": "example-soc-ingest-live-dlq",
+        "max_batch_size": 1,
+        "max_batch_timeout": 1,
+        "max_retries": 3,
+        "retry_delay": 20,
+        "max_concurrency": 1
+      }
+    ]
+  }
+}

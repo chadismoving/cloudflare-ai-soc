@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2023", "DOM"],
+    "types": ["node", "@cloudflare/workers-types"],
+    "allowJs": true
+  },
+  "include": ["./**/*.ts", "../vitest.config.ts", "../apps/api/src/worker-bindings.d.ts"]
+}

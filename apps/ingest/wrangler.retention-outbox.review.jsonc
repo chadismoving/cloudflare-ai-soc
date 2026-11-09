@@ -1,0 +1,36 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "example-soc-retention-simulation-worker",
+  "main": "src/retention-outbox-worker.ts",
+  "compatibility_date": "2026-10-27",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "send_metrics": false,
+  "observability": {
+    "enabled": false
+  },
+  "limits": {
+    "cpu_ms": 1000
+  },
+  "vars": {
+    "APP_ENV": "cloud-simulation",
+    "DATA_ENVIRONMENT": "simulation",
+    "RETENTION_PROFILE": "simulation-retention-outbox-v1",
+    "RETENTION_MODE": "apply",
+    "RETENTION_DATABASE_ID": "00000000-0000-4000-8000-000000000012",
+    "RETENTION_ACCOUNT_ID": "00000000000000000000000000000001"
+  },
+  "d1_databases": [
+    {
+      "binding": "SIMULATION_DB",
+      "database_name": "example-soc-simulation",
+      "database_id": "00000000-0000-4000-8000-000000000012",
+      "migrations_dir": "../../.local/r2-retention-review/migrations",
+      "remote": false
+    }
+  ],
+  "triggers": {
+    "crons": ["17 * * * *"]
+  }
+}

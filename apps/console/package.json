@@ -1,0 +1,16 @@
+{
+  "name": "@soc/console",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "watch": "vite build --watch",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@soc/shared": "*",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  }
+}

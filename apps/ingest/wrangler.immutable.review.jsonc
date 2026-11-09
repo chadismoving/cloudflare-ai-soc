@@ -1,0 +1,58 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "example-soc-ingest-simulation-worker",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-27",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "send_metrics": false,
+  "observability": {
+    "enabled": false
+  },
+  "vars": {
+    "APP_ENV": "cloud-simulation",
+    "DATA_ENVIRONMENT": "simulation",
+    "CLOUD_SIMULATION_PROFILE": "phase2b-retention-v1"
+  },
+  "limits": {
+    "cpu_ms": 1000
+  },
+  "d1_databases": [
+    {
+      "binding": "SIMULATION_DB",
+      "database_name": "example-soc-simulation",
+      "database_id": "00000000-0000-4000-8000-000000000012",
+      "migrations_dir": "../../.local/r2-retention-review/none",
+      "remote": false
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "SIMULATION_STORE",
+      "bucket_name": "example-cloudflare-ai-soc-simulation",
+      "remote": false
+    }
+  ],
+  "queues": {
+    "consumers": [
+      {
+        "queue": "example-soc-ingest-simulation",
+        "max_batch_size": 1,
+        "max_batch_timeout": 1,
+        "max_retries": 3,
+        "retry_delay": 5,
+        "max_concurrency": 1,
+        "dead_letter_queue": "example-soc-ingest-simulation-dlq"
+      },
+      {
+        "queue": "example-soc-ingest-simulation-dlq",
+        "max_batch_size": 1,
+        "max_batch_timeout": 1,
+        "max_retries": 3,
+        "retry_delay": 5,
+        "max_concurrency": 1
+      }
+    ]
+  }
+}
